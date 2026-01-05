@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Verificamos que exista la sesión, si no, pa' fuera
+#Verificamos que exista la sesión, si no, pa fuera
 if (!isset($_SESSION['usuario'])) {
     header("Location: ../login/login.php");
     exit;

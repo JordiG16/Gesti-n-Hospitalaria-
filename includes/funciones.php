@@ -80,6 +80,14 @@ function eliminar ($pdo,$tabla,$id){
     ];
     try{
         $idCampo=$ID_MAP[$tabla];
+        
+        
+        $stmtInfo = $pdo->prepare("SELECT * FROM $tabla WHERE $idCampo = ?");
+        $stmtInfo->execute([$id]);
+        $info = $stmtInfo->fetch(PDO::FETCH_ASSOC);
+        $nombreLog = $info['nombre'] ?? $info['usuarios'] ?? 'ID '.$id;
+      
+
         $sql="DELETE FROM $tabla WHERE $idCampo= ?";
         $stmt=$pdo->prepare($sql);
         $stmt->execute([$id]);
@@ -87,6 +95,11 @@ function eliminar ($pdo,$tabla,$id){
         if ($stmt->rowCount() === 0){
             return ["mensaje" => "No se encontró el registro o ya estaba eliminado"];
         }
+
+      
+        registrar_historial($pdo, $_SESSION['usuario'] ?? 'Admin', 'Sistema', 'ELIMINAR', "Se eliminó de $tabla: $nombreLog");
+      
+
         return ["mensaje" => "Registro eliminado correctamente"];
 
     }catch (Exception $e){
@@ -143,6 +156,10 @@ function crear($pdo, $tabla, $datos) {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt=$pdo->prepare($sql);
         $stmt->execute([$nombre, $usuario, $correo, $contrasena_hash, $telefono, $curp, $afiliado, $direccion]);
+        
+        # --- AGREGADO: Historial Usuarios ---
+        registrar_historial($pdo, $_SESSION['usuario'] ?? 'Sistema', 'Admin', 'REGISTRO', "Registró usuario: $nombre ($curp)");
+        
         return ["status" => "ok", "id_insertado" => $pdo->lastInsertId()];
     }
     #APARTADO DE DOCTORES
@@ -151,6 +168,10 @@ function crear($pdo, $tabla, $datos) {
             VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt=$pdo->prepare($sql);
     $stmt->execute([$nombre, $especialidad, $correo, $contrasena_hash, $telefono, $curp, $direccion]);
+    
+    # --- AGREGADO: Historial Doctores ---
+    registrar_historial($pdo, $_SESSION['usuario'] ?? 'Sistema', 'Admin', 'ALTA DOCTOR', "Registró doctor: $nombre - $especialidad");
+
     return ["status" => "ok", "id_insertado" => $pdo->lastInsertId()];
 }
 
@@ -175,6 +196,10 @@ function modificar($pdo,$tabla,$nombre,$telefono,$direccion,$usuario,$contrasena
                 $stmt=$pdo->prepare($sql);
                 $stmt->execute([$nombre, $usuario, $direccion, $telefono, $contrasena, $id]);
             }
+            
+            # --- AGREGADO: Historial Update Usuario ---
+            registrar_historial($pdo, $_SESSION['usuario'] ?? 'Admin', 'Sistema', 'EDICION', "Editó usuario ID $id ($nombre)");
+            
             return ["mensaje"=>"Registro actualizado"];
         }else{
                 if ($contrasena === null){
@@ -187,6 +212,10 @@ function modificar($pdo,$tabla,$nombre,$telefono,$direccion,$usuario,$contrasena
                     $stmt=$pdo->prepare($sql);
                     $stmt->execute([$nombre, $usuario, $direccion, $telefono, $contrasena, $id]);
                 }
+
+                # --- AGREGADO: Historial Update Doctor ---
+                registrar_historial($pdo, $_SESSION['usuario'] ?? 'Admin', 'Sistema', 'EDICION', "Editó doctor ID $id ($nombre)");
+
                 return ["mensaje"=>"Registro actualizado"];
         }
 
@@ -296,7 +325,7 @@ function eliminar_medicamento_seguro($pdo, $id_admin, $usuario_nombre, $id_med) 
 
         $nombre_med = $med['principio_activo'] . " " . $med['gramaje'];
 
-       #borrar
+        #borrar
         $sql = "DELETE FROM medicamentos WHERE id_medicamento = ?";
         $stmt = $pdo->prepare($sql);
         $ejecucion = $stmt->execute([$id_med]);

@@ -51,8 +51,8 @@ try{
     $user=$stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($p, $user['contrasena'])){
-        $_SESSION['usuario']=$user['usuarios'];
-        $_SESSION['id']=$user['id_rh'];
+        $_SESSION['usuarios']=$user['usuarios'];
+        $_SESSION['administradores_rh']=$user['administradores_rh'];
         header("Location: ../Admin_RH/index.php");
         exit;
     }
