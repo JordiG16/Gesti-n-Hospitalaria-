@@ -35,7 +35,7 @@ try {
                 <h1 class="text-2xl font-bold text-gray-900">Solicitudes de Ingreso</h1>
                 <p class="text-sm text-gray-500">Gestión de postulantes y nuevas contrataciones.</p>
             </div>
-            <a href="../../index.php" class="text-blue-600 hover:underline text-sm font-medium">&larr; Volver al Panel</a>
+            <a href="../index.php" class="text-blue-600 hover:underline text-sm font-medium">&larr; Volver al Panel</a>
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -74,7 +74,7 @@ try {
                                 
                                 <td class="p-4 text-right space-x-2">
                                     <?php if (!empty($sol['archivo_cv'])): ?>
-                                        <a href=""<?= htmlspecialchars($sol['archivo_cv']); ?>" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 px-2 py-1 rounded hover:bg-blue-50">Ver CV</a>
+                                        <a href=""<?= htmlspecialchars($sol['archivo_cv']); ?> target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 px-2 py-1 rounded hover:bg-blue-50">Ver CV</a>
                                     <?php else: ?>
                                         <span class="text-gray-400 text-xs cursor-not-allowed px-2 py-1">Sin CV</span>
                                     <?php endif; ?>

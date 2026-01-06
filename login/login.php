@@ -62,6 +62,12 @@
                 </div>
             </div>
 
+            <div class="flex justify-end">
+                <a href="/includes/cambiar_contraseña.php" class="text-xs font-semibold text-blue-600 hover:text-blue-800 hover:underline transition">
+                    ¿Olvidaste tu contraseña?
+                </a>
+            </div>
+
             <button type="submit" 
                     class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5">
                 Entrar al Sistema

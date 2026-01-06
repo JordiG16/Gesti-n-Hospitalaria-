@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1 class="text-2xl font-bold text-gray-900">Configuración</h1>
                 <p class="text-sm text-gray-500">Preferencias de tu cuenta.</p>
             </div>
-            <a href="../index.php" class="text-gray-400 hover:text-gray-600 text-sm">Cancelar</a>
+            <a href="../index.php" class="text-gray-400 hover:text-gray-600 text-sm">Regresar</a>
         </div>
 
         <?php if (!empty($mensaje)): ?>

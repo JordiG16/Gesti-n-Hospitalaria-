@@ -65,8 +65,8 @@ session_start();
         
         <div class="text-white z-10 overflow-hidden">
             <h3 class="font-bold text-lg leading-tight truncate pr-8"><?php echo $_SESSION['usuario_paciente'] ?? 'Paciente'; ?></h3>
-            <a href="<?php echo $ruta; ?>/perfil/mi_perfil.php" class="text-xs text-cyan-100 hover:text-white flex items-center gap-1 mt-1 transition group">
-                Mi Perfil de Salud 
+            <a href="../includes/cambiar_contraseña.php" class="text-xs text-cyan-100 hover:text-white flex items-center gap-1 mt-1 transition group">
+                Cambiar contraseña
                 <span class="group-hover:translate-x-1 transition-transform">&rsaquo;</span>
             </a>
         </div>
@@ -115,7 +115,7 @@ session_start();
     </nav>
 
     <div class="p-4 border-t border-slate-100">
-        <a href="./perfil/cerrar_sesion.php" class="flex items-center justify-center gap-2 w-full py-3 border border-slate-200 rounded-xl text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition font-medium">
+        <a href="../includes/cerrar_sesion.php" class="flex items-center justify-center gap-2 w-full py-3 border border-slate-200 rounded-xl text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition font-medium">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
             Cerrar Sesión
         </a>

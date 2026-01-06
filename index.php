@@ -14,7 +14,85 @@
 <body class="bg-slate-50 min-h-screen font-sans text-slate-800 flex flex-col"> 
 
     <header class="w-full shadow-md sticky top-0 z-50"> 
-        <?php include("./includes/header.php"); ?>
+        <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$nombre=$_SESSION['usuario'] ?? 'Administrador';
+?>
+
+<div class="w-full bg-blue-700 shadow-md px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+        <div class="bg-white/20 p-2 rounded-lg text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+        </div>
+        <h1 class="text-xl font-bold tracking-wide text-white">Panel Administrador</h1>
+    </div>
+
+    <button id="menu-btn" class="text-white hover:bg-blue-600 p-2 rounded-lg transition focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+</div>
+
+<div id="sidebar" class="fixed top-0 right-0 h-full w-72 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[60] flex flex-col">
+    
+    <div class="bg-blue-800 text-white px-6 py-6 flex justify-between items-center">
+        <h2 class="text-lg font-bold flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            Mi Perfil
+        </h2>
+        <button id="close-menu" class="hover:bg-blue-700 p-1 rounded-full transition">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="p-6 flex-1 overflow-y-auto">
+        <div class="text-center mb-6">
+            <div class="w-20 h-20 mx-auto bg-blue-50 rounded-full flex items-center justify-center text-blue-600 text-3xl font-bold border-4 border-blue-100">
+                <?php echo strtoupper(substr($nombre, 0, 1)); ?>
+            </div>
+            <p class="mt-3 text-lg font-bold text-gray-800"><?php echo htmlspecialchars($nombre); ?></p>
+            <p class="text-xs text-gray-500 bg-gray-100 py-1 px-2 rounded-full inline-block mt-1">Super Administrador</p>
+        </div>
+
+        <hr class="border-gray-100 mb-6">
+
+        <nav class="space-y-2">
+            <a href="/includes/cambiar_contraseña.php" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-blue-50 hover:text-blue-700 font-medium transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                cambiar contreseña
+            </a>
+
+            <a href="/includes/cerrar_sesion.php" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white font-medium transition mt-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                Cerrar sesión
+            </a>
+        </nav>
+    </div>
+</div>
+
+<div id="overlay" class="fixed inset-0 bg-black/50 hidden z-[55] backdrop-blur-sm transition-opacity"></div>
+
+<script>
+    const btn = document.getElementById("menu-btn");
+    const closeBtn = document.getElementById("close-menu");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    function toggleMenu() {
+        sidebar.classList.toggle("translate-x-full");
+        overlay.classList.toggle("hidden");
+    }
+
+    if(btn) btn.addEventListener("click", toggleMenu);
+    if(closeBtn) closeBtn.addEventListener("click", toggleMenu);
+    if(overlay) overlay.addEventListener("click", toggleMenu);
+</script>
     </header>
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10">

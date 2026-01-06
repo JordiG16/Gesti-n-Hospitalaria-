@@ -51,8 +51,8 @@ try{
     $user=$stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($p, $user['contrasena'])){
-        $_SESSION['usuarios']=$user['usuarios'];
-        $_SESSION['administradores_rh']=$user['administradores_rh'];
+        $_SESSION['usuario']=$user['usuarios'];
+        $_SESSION['id_rh']=$user['id_rh'];
         header("Location: ../Admin_RH/index.php");
         exit;
     }
@@ -64,7 +64,7 @@ try{
     exit;
 
 } catch (Exception $e) {
-    // El catch solo se activa si falla la conexión a la BD
+     #El catch solo se activa si falla la conexión a la BD
     echo "Error crítico: " . $e->getMessage();
     exit;
 }
